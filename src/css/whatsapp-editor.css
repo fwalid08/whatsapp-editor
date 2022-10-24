@@ -63,3 +63,30 @@
 .whatsapp-dropdown:hover .dropbtn {
     background-color: #3e8e41;
 }
+
+.whatsapp-placeholders {
+    /* border: 1px solid #ccc; */
+    padding: 0;
+    margin-top: 10px;
+}
+
+.whatsapp-placeholders .placeholder-item {
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+    padding: 5px;
+    min-width: 80px;
+    text-align: center;
+    background-color: #555;
+    color: #fff;
+    text-decoration: none;
+}
+
+.whatsapp-placeholders .placeholder-item:first-child {
+    margin-left: 0;
+}
+
+.whatsapp-placeholders .placeholder-item:hover {
+    background: #ccc;
+    color: #444;
+}

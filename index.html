@@ -20,7 +20,7 @@
     <script type="text/javascript">
         var editor;
         $(function () {
-            editor = $("#whatsapp-editor-container").whatsappEditor({content:'<b>Hello</b><div><i>World</i></div>'});
+            editor = $("#whatsapp-editor-container").whatsappEditor({placeholders:['nama', 'alamat', 'umur']});
         });
 
         function getWhatAppFormattedContent() {

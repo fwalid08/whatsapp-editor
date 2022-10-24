@@ -70,7 +70,7 @@
         //Whatsapp Emoji
         //https://gist.github.com/hkan/264423ab0ee720efb55e05a0f5f90887/revisions
         function prepareSmileMenu($parentElement) {
-            var smiles = ["👿", "👀", "🌬", "🌞", "🌝", "🌜", "🌛", "🌚", "💀", "💆", "🤗", "🤖", "🤕", "🤔", "🤓", "🤒", "🤐", "🤩", "🤧", "🤥", "🤤", "🤣", "🤢", "🤡", "🤠", "🙁", "🙂", "🙃", "😛", "😟", "😞", "😜", "😓", "😖", "😕", "😔", "😋", "😊", "😉", "😈", "😏", "😎", "😃", "😂", "😁", "😀", "😇", "😅", "😄", "😳", "😲", "😱", "😰", "😷", "😶", "😵", "😫", "😪", "😩", "😨", "😯", "😭", "😬", "😣", "😢", "😡", "😠", "😥", "😤", "⛑", "😌", "😆", "🦄", "😮", "☹", "☺", "💆", "🗣", "🗿"];
+            var smiles = [123, "👿", "👀", "🌬", "🌞", "🌝", "🌜", "🌛", "🌚", "💀", "💆", "🤗", "🤖", "🤕", "🤔", "🤓", "🤒", "🤐", "🤩", "🤧", "🤥", "🤤", "🤣", "🤢", "🤡", "🤠", "🙁", "🙂", "🙃", "😛", "😟", "😞", "😜", "😓", "😖", "😕", "😔", "😋", "😊", "😉", "😈", "😏", "😎", "😃", "😂", "😁", "😀", "😇", "😅", "😄", "😳", "😲", "😱", "😰", "😷", "😶", "😵", "😫", "😪", "😩", "😨", "😯", "😭", "😬", "😣", "😢", "😡", "😠", "😥", "😤", "⛑", "😌", "😆", "🦄", "😮", "☹", "☺", "💆", "🗣", "🗿"];
             for (smile in smiles)
             {
                 $("<a/>").attr("href", "javascript:void(0)").append(smiles[smile]).on("click", function (e) { var value = $(this).html(); format("smile", value); }).appendTo($parentElement);
@@ -85,6 +85,9 @@
                 document.execCommand("fontName", false, "monospace");
             }            
             else if (command === "smile") {
+                document.execCommand("insertHTML", false, value);
+            }            
+            else if (command === "placeholder") {
                 document.execCommand("insertHTML", false, value);
             }
         }
@@ -103,6 +106,28 @@
             }
 
             $editor.appendTo($parentElement);
+        }
+
+        function initPlaceholders($parentElement) {
+            var $placeholders = $("<div/>")
+                .addClass("whatsapp-placeholders");
+
+            if (settings.placeholders && settings.placeholders.length > 0) {
+                for (let i = 0; i < settings.placeholders.length; i++) {
+                    let $placeholder = $(`<a>${settings.placeholders[i]}</a>`)
+                    .attr("href", "javascript:void(0)")
+                    .addClass('placeholder-item')
+                    .on("click", function (e) {
+                        e.preventDefault();
+                        let value = '([' + settings.placeholders[i] + '])';
+                        format("placeholder", value); 
+                    });
+                    $placeholder.appendTo($placeholders);
+                }
+            }
+
+            // $placeholders.html(html);
+            $placeholders.appendTo($parentElement);
         }
 
         this.getFormattedContent = function () {
@@ -138,6 +163,7 @@
         return this.each(function (e, res) {
             initToolbar(res);
             initEditor(res);
+            initPlaceholders(res);
         });
     };
 
